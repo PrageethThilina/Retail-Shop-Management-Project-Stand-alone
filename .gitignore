@@ -1,0 +1,35 @@
+## Visual Studio & .NET GitIgnore
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+!src/.gitkeep
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+.vs/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+build/
+bld/
+
+# Diagnostics & Logs
+*.log
+error.log
+
+# Package cache
+*.nupkg
+packages/
