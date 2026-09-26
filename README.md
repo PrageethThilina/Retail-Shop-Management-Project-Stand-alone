@@ -1,64 +1,66 @@
-# 🏪 Retail Shop Standalone Management System (Enterprise ERP - 2026 Edition)
+# 🏪 Retail Shop Standalone Management System (Enterprise Desktop ERP)
 
 [![.NET 9](https://img.shields.io/badge/.NET-9.0%20Windows-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![C# 13](https://img.shields.io/badge/Language-C%23%2013-239120?logo=csharp&logoColor=white)](https://learn.microsoft.com/en-us/dotnet/csharp/)
 [![Database](https://img.shields.io/badge/Database-Microsoft%20SQL%20Server-CC292B?logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
-[![Security](https://img.shields.io/badge/Security-BCrypt%20Hashing%20%7C%20RBAC-10B981?logo=security&logoColor=white)](SECURITY_AUDIT_REPORT.md)
+[![Security](https://img.shields.io/badge/Security-BCrypt%20Hashing%20%7C%20RBAC-10B981?logo=security&logoColor=white)](SECURITY.md)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%7C%20Repository%20Pattern-4F46E5)](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
-## 🌟 Overview & Transformation Story
+## 🌟 Executive Overview
 
-This project is a complete modernization of an undergraduate software engineering university module project into a **2026 enterprise-grade retail standalone desktop ERP application**. 
+**Retail Shop Standalone Management System** is a high-performance, enterprise-grade desktop ERP and Point-of-Sale (POS) application engineered in **C# 13** and **.NET 9 Windows Forms**. 
 
-As a software engineer with **5+ years of industry experience**, this repository has been comprehensively refactored to eliminate critical legacy vulnerabilities (SQL injection, plaintext credentials, missing authorization, catastrophic SQL update bugs, and connection leaks) and elevated to modern high-performance C# / .NET 9 standards with **Clean Architecture**, **Dependency Injection**, **Role-Based Access Control (RBAC)**, **Server-Side Pagination**, and **Automated Database Self-Healing**.
+Designed for commercial retail outlets, supermarkets, and wholesale businesses, the solution delivers an end-to-end retail workflow: transactional cashier checkout, inventory cataloging with low-stock alerts, supplier/customer ledgers, staff attendance & payroll calculation, financial budgeting, and interactive business intelligence (BI) analytics.
 
-> 📄 **Looking for the Security Assessment?**  
-> Read the complete [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) for detailed CWE vulnerability audits, exploit mechanisms, and remediation proofs.
+The application is architected around **Clean Architecture**, **Dependency Injection**, **Repository Pattern**, **100% Parameterized Dapper Data Access**, and **Role-Based Access Control (RBAC)**.
 
----
-
-## 🚀 Key Modern Features (2026)
-
-- 🔒 **Enterprise Authentication & BCrypt Security**:
-  - Secure password hashing using **BCrypt (Work Factor 11)** with unique cryptographic salts.
-  - Zero plaintext credential storage.
-  - Secure password changes with complexity verification and current password validation.
-- 🛡️ **Role-Based Access Control (RBAC)**:
-  - Multi-tier operational security: **Admin**, **Manager**, and **Cashier**.
-  - Dynamic UI permission enforcement (hides or disables unauthorized financial and staff management screens).
-- ⚡ **Server-Side Pagination on All Tables**:
-  - Eliminates memory bloat and UI freezing on large datasets.
-  - Reusable `PaginationControl` with page size switching (10, 25, 50, 100), record statistics, and instant navigation.
-  - Applied to **Inventory/Products**, **Sales History**, **Customers**, **Suppliers**, **Employees**, **Attendance & Payroll**, and **Budgets**.
-- 🛒 **Modern Point-of-Sale (POS) & Checkout Engine**:
-  - Fast barcode/product search, cart line item calculations, subtotal, discount, net total, and cash change computation.
-  - **Atomic SQL Transactions**: Inventory stock is conditionally decremented with safety checks, preventing race conditions and negative inventory.
-- 🖨️ **Built-in GDI+ Receipt Engine**:
-  - Replaces fragile, proprietary Crystal Reports and COM dependencies with a clean, native thermal-style receipt preview and print dialog.
-- 📊 **Real-Time KPI Dashboard & Interactive BI Analytics**:
-  - Live financial metrics: Today's Revenue, Monthly Revenue, Low Stock Alerts, Total Active Products, and Staff count.
-  - **7-Day Revenue Trend Chart**: Custom vector GDI+ chart with anti-aliasing, rounded bars, interactive hover tooltips, and dynamic resize handling.
-  - **Inventory Category Distribution**: Real-time category valuation breakdown with SKU counts, total stock value, and percentage distribution badges.
-- 📑 **Enterprise PDF Audit & Report Generation**:
-  - Powered by **QuestPDF 2026**, generating publication-ready vector documents.
-  - **Inventory Valuation & Stock Audit Report**: Full landscape catalog audit with category breakdowns, unit costs, retail prices, margin percentages, and stock status indicators.
-  - **Sales Transaction Audit Report**: Comprehensive ledger with cashier attribution, payment breakdown (Cash, Card, Credit), and net sales summary.
-  - **Payroll & Attendance Disbursement Report**: Monthly staff payroll register with gross wages, overtime, deductions, and net disbursements.
-- 🎨 **Modern High-DPI UI & Polished UX**:
-  - Consistent modern color tokens (`#0F172A`, `#1E293B`, `#6366F1`, `#10B981`) with flat, clean aesthetics.
-  - Ergonomic toolbar layouts with zero text clipping on search inputs and filters across all 8 modules.
-  - Fixed sidebar navigation docking, expanded width (265px), and contextual tooltips on restricted modules for unprivileged roles.
-- 🛠️ **Zero-Friction Database Provisioning**:
-  - Built-in `DbInitializer` automatically verifies and creates `RetailShopDb` on SQL Server, executes DDL table creation with indexes, and seeds default accounts and catalog items out-of-the-box.
+> 📄 **Looking for the Security Specifications?**  
+> Review [SECURITY.md](SECURITY.md) for details on password hashing, RBAC matrix, and concurrency safeguards.
 
 ---
 
-## 🏗️ Architecture & Solution Structure
+## 🚀 Key Functional Modules & Features
 
-The solution follows **Clean Layered Architecture** with strict separation of concerns and dependency inversion:
+### 🛒 1. Point of Sale (POS) & Billing Terminal
+- **Fast Product Search**: Instant lookup by product code or item name with real-time stock availability.
+- **Cart Line-Item Management**: Dynamic quantity adjustment, price calculation, item deletion, and subtotaling.
+- **Discount & Tender Handling**: Custom discount percentage computation, cash received validation, and change return calculations.
+- **Atomic Concurrency Protection**: Transactions execute under an atomic `IDbTransaction` scope that validates and decrements stock levels conditionally, preventing negative inventory or race conditions.
+- **Thermal Receipt Engine**: Native .NET GDI+ vector thermal receipt preview with 80mm standard formatting and direct printer routing.
+- **Historical Receipt Archive**: Complete historical receipt search, reprint capabilities, and cashier attribution.
+
+### 📊 2. Real-Time KPI Dashboard & Interactive BI Analytics
+- **Live Performance Tiles**: Today's Sales Revenue, Monthly Sales Total, Low Stock SKU Alerts, Active Product Count, and Active Staff Roster.
+- **Weekly Sales Trend Vector Chart**: Custom GDI+ anti-aliased bar chart plotting the trailing 7-day revenue curve with dynamic tooltips and adaptive resizing.
+- **Inventory Valuation Breakdown**: Real-time category asset valuation progress bars with item counts and proportional share metrics.
+
+### 📦 3. Inventory & Catalog Management
+- **Full Catalog Lifecycle**: Categorization, unit cost, retail price, stock on hand, and configurable minimum reorder thresholds.
+- **Low Stock Filter**: One-click filter highlighting all SKUs requiring replenishment.
+- **Server-Side Pagination**: Instant browsing through large inventories with customizable page sizes (10, 25, 50, 100).
+
+### 📑 4. Enterprise PDF Report Generation (QuestPDF)
+- **Inventory Valuation & Stock Audit Report**: Full landscape catalog audit with category breakdowns, unit costs, retail prices, margin percentages, and stock status indicators.
+- **Sales Transaction Audit Report**: Comprehensive ledger with cashier attribution, payment breakdown (Cash, Card, Credit), and net sales summary.
+- **Payroll Disbursement Register**: Monthly staff payroll register with gross wages, overtime, deductions, and net disbursements.
+
+### 👥 5. Relationship & Staff Management
+- **Customer Directory**: Customer profiles, loyalty discount tracking, and purchase transaction history.
+- **Supplier Ledger**: Vendor contact records, company profiles, and supply catalog association.
+- **Employee Roster & Attendance**: Staff tracking, daily check-in/out records, and monthly attendance tallying.
+- **Payroll & Salary Processor**: Automated salary calculations factoring monthly base wage, overtime rate, working hours, and advance deductions.
+
+### 💰 6. Financial Budgeting & Profit Analysis
+- Annual and monthly expense vs. revenue comparison, net margin tracking, and financial forecasting.
+
+---
+
+## 🏗️ Architecture & Solution Layout
+
+The solution strictly adheres to **Clean Layered Architecture** with unidirectional dependencies:
 
 ```
 RetailShopManagement/
@@ -71,73 +73,58 @@ RetailShopManagement/
 │   │   └── Security/                  # BCryptPasswordHasher, UserSession, RolePermissions
 │   │
 │   ├── RetailShop.Data/               # Data Access Layer
-│   │   ├── Repositories/              # UserRepository, ProductRepository, SaleRepository, etc.
-│   │   ├── ISqlConnectionFactory.cs   # Centralized SQL Server connection manager
+│   │   ├── Repositories/              # Dapper repository implementations
+│   │   ├── ISqlConnectionFactory.cs   # Centralized connection pooling manager
 │   │   ├── DbInitializer.cs           # Automated DDL schema migration & data seeder
-│   │   └── DataServiceExtensions.cs   # Dependency Injection service registrations
+│   │   └── DataServiceExtensions.cs   # Dependency Injection registrations
 │   │
 │   └── RetailShop.UI/                 # Modern WinForms Presentation Layer (.NET 9)
-│       ├── Controls/                  # Reusable PaginationControl
+│       ├── Controls/                  # PaginationControl, BI Vector Charts
 │       ├── Forms/                     # LoginForm, MainDashboardForm
-│       ├── Services/                  # ReceiptPrinter (GDI+ thermal printing)
-│       ├── Styles/                    # ModernTheme color tokens & control styling
+│       ├── Services/                  # ReceiptPrinter, PdfReportService
+│       ├── Styles/                    # ModernTheme color tokens & styling
 │       ├── Views/                     # DashboardView, BillingView, ProductsView, etc.
 │       ├── appsettings.json           # Connection strings & store configuration
 │       └── Program.cs                 # Generic Host, DI Container, & App bootstrap
 │
-├── Project-Files/                     # Original university coursework project files (preserved)
-├── SECURITY_AUDIT_REPORT.md           # Formal vulnerability assessment & remediation report
-├── RetailShopManagement.sln           # Standard Visual Studio solution
-└── RetailShopManagement.slnx          # Modern .NET 9 XML solution
+├── SECURITY.md                        # Enterprise security architecture specifications
+├── README.md                          # Solution documentation
+├── .gitignore                         # Visual Studio & .NET exclusions
+└── RetailShopManagement.sln           # Standard Visual Studio solution
 ```
-
----
-
-## 🛡️ Security & Engineering Comparison (Before vs After)
-
-| Feature / Domain | Legacy University Code (2019) | Modernized Enterprise Code (2026) |
-|:---|:---|:---|
-| **Target Framework** | .NET Framework 4.6.1 (`packages.config`) | **.NET 9.0 Windows** (SDK-style project) |
-| **SQL Execution** | Raw string concatenation (`'"+txt.Text+"'`) | **100% Parameterized Queries via Dapper** |
-| **Password Storage** | Plaintext in database & displayed in grids | **BCrypt Enhanced Hashing (Work Factor 11)** |
-| **Authorization** | None (All users had god-mode access) | **Role-Based Access Control (Admin, Manager, Cashier)** |
-| **Table Pagination** | None (`SELECT *` loaded entire DB into UI) | **Server-Side SQL Pagination (`OFFSET/FETCH`)** |
-| **Data Integrity** | `UPDATE Stock` had no `WHERE` clause (wiped DB) | **Atomic Scoped Updates & SQL Transactions** |
-| **Connection Health** | Unclosed connections & memory leaks in `dataGet` | **Connection Pooling with `using` Scopes** |
-| **Receipt Printing** | Hardcoded file paths to `.rpt` Crystal Reports | **Native .NET GDI+ Thermal Receipt Preview** |
-| **App Architecture** | Sprawling monolithic form partials | **Clean Layered Architecture with Microsoft DI** |
-| **Database Setup** | 3 fragmented local databases on machine | **Unified `RetailShopDb` with Auto-Provisioning** |
 
 ---
 
 ## 👥 Role-Based Access Control (RBAC) Matrix
 
-| Module / Action | Cashier | Manager | Admin |
+Operational security is governed by three distinct roles:
+
+| Module / Operation | Cashier | Manager | Admin |
 |:---|:---:|:---:|:---:|
 | **POS Checkout & Billing** | ✅ Full Access | ✅ Full Access | ✅ Full Access |
 | **Print / Re-print Receipts** | ✅ Full Access | ✅ Full Access | ✅ Full Access |
-| **View Customer Accounts** | ✅ View / Search | ✅ Full Access | ✅ Full Access |
-| **Inventory Stock Lookup** | ✅ Read-Only | ✅ Full CRUD | ✅ Full CRUD |
+| **Customer Directory** | ✅ Read-Only | ✅ Full CRUD | ✅ Full CRUD |
+| **Inventory Stock & Pricing** | ✅ Read-Only | ✅ Full CRUD | ✅ Full CRUD |
 | **Low Stock Alerts** | ✅ View | ✅ Full Access | ✅ Full Access |
 | **Supplier Directory** | ❌ Restricted | ✅ Full Access | ✅ Full Access |
 | **Employee & Staff Directory** | ❌ Restricted | ✅ Read-Only | ✅ Full CRUD |
 | **Attendance & Payroll Processing** | ❌ Restricted | ❌ Restricted | ✅ Full Access |
-| **Financial Budget & Profit Analysis** | ❌ Restricted | ❌ Restricted | ✅ Full Access |
+| **Budget & Financial Analysis** | ❌ Restricted | ❌ Restricted | ✅ Full Access |
 | **User Account & Role Management** | ❌ Restricted | ❌ Restricted | ✅ Full Access |
 
 ---
 
-## 🔑 Quick Demo Credentials
+## 🔑 Demo Access Accounts
 
-The application includes an **automated database provisioner and seeder**. On first run, it connects to Microsoft SQL Server (`.\SQLEXPRESS`), creates `RetailShopDb`, and seeds the following test accounts:
+The built-in self-healing `DbInitializer` automatically checks, creates, and seeds default demonstration accounts upon initial launch:
 
 | Role | Username | Default Password | Permissions |
 |:---|:---|:---|:---|
 | 👑 **Administrator** | `admin` | `Admin@2026!` | Complete administrative control |
 | 👔 **Manager** | `manager` | `Manager@2026!` | Operations, inventory, suppliers, sales |
-| 🛒 **Cashier** | `cashier` | `Cashier@2026!` | POS terminal checkout & customer search |
+| 🛒 **Cashier** | `cashier` | `Cashier@2026!` | POS checkout terminal & customer search |
 
-*(Quick-fill buttons are also available on the Login screen for instant one-click testing.)*
+*(Quick-fill demo buttons are provided on the Login screen for immediate one-click testing.)*
 
 ---
 
@@ -146,10 +133,10 @@ The application includes an **automated database provisioner and seeder**. On fi
 ### Prerequisites
 1. **.NET 9.0 SDK** (or later) installed: [Download .NET](https://dotnet.microsoft.com/download)
 2. **Microsoft SQL Server** (2016 or newer, Express, Developer, or LocalDB) running locally.
-3. Windows 10 or 11.
+3. Windows 10 or 11 (High-DPI supported).
 
 ### Configuration
-Open [appsettings.json](src/RetailShop.UI/appsettings.json) to adjust your SQL Server connection string if needed:
+Configure your SQL Server connection string in [appsettings.json](src/RetailShop.UI/appsettings.json):
 ```json
 {
   "ConnectionStrings": {
@@ -159,7 +146,7 @@ Open [appsettings.json](src/RetailShop.UI/appsettings.json) to adjust your SQL S
 ```
 
 ### Build & Run
-Run the following commands from the root directory:
+Execute the following commands from the root directory:
 
 ```bash
 # 1. Restore & Build the solution
@@ -169,7 +156,7 @@ dotnet build RetailShopManagement.sln
 dotnet run --project ./src/RetailShop.UI/RetailShop.UI.csproj
 ```
 
-The application will self-initialize the database and display the login screen.
+The application will automatically verify the database schema, apply missing tables and indexes, seed demo records, and launch the login interface.
 
 ---
 

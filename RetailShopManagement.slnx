@@ -1,7 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/RetailShop.Core/RetailShop.Core.csproj" />
-    <Project Path="src/RetailShop.Data/RetailShop.Data.csproj" />
-    <Project Path="src/RetailShop.UI/RetailShop.UI.csproj" />
-  </Folder>
-</Solution>
